@@ -30,7 +30,7 @@ listPromise
         .filter(({Key}) => imageReg.test(Key))
         .map(({Key}) => `${baseUrl}/${Key}`)
         .join('\n');
-        console.log(`==> ${baseUrl}/${directory}`);
+        console.log(`==> Bucket: ${Bucket} |  Directory: ${directory}`);
         console.log(files);
     })
     .catch(error => {
