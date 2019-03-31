@@ -21,17 +21,17 @@ const CDN_ENDPOINT = 'sgp1.cdn.digitaloceanspaces.com';
 const baseUrl = `https://${Bucket}.${CDN_ENDPOINT}`;
 
 const imagesExt = ['.jpg', '.jpeg', '.png', '.svg', '.gif']; // => new RegExp
-const regexStringPart = imagesExt.map(ext => `\\${ext}$`).join('||');
-const fullRegexString = `/${regexStringPart}/i`;
-const isImage = new RegExp(fullRegexString);
-
+const regexStringPart = imagesExt.map(ext => `\\${ext}$`).join('|');
+const fullRegexString = `${regexStringPart}/i`;
+const imageReg = new RegExp(fullRegexString);
 listPromise
     .then(data => {
         const files = data.Contents
-        .filter(({Key}) => isImage.test(Key))
+        .filter(({Key}) => imageReg.test(Key))
         .map(({Key}) => `${baseUrl}/${Key}`)
         .join('\n');
-        console.log('files', files);
+        console.log(`==> ${baseUrl}/${directory}`);
+        console.log(files);
     })
     .catch(error => {
         console.log('woww, error', error);
